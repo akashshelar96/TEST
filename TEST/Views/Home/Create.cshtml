@@ -1,0 +1,45 @@
+﻿@model TEST.Models.Product
+@{
+    ViewData["Title"] = "Create";
+}
+    <h1>Create</h1>
+    <h4>Product</h4>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center text-primary">Add New Product</h1>
+                    <p class="text-center text-danger">@TempData["message"]</p>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="Create">
+                        <div class="form-group">
+                            <label asp-for="ProductName"></label>
+                            <input type="text" asp-for="ProductName" class="form-control" placeholder="Enter Product Name" />
+                            <span asp-validation-for="ProductName" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <label CategoryId="lstCategoryId" asp-for="CategoryId" class="control-label"></label>
+                            <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-sm btn-outline-success float-right"
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+            @section Scripts{
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }
+       
