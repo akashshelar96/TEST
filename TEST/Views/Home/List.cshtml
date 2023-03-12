@@ -3,6 +3,13 @@
 @{
     ViewData["Title"] = "List";
 }
+ Pager pager = new Pager();
+    int pageNo = 0;
+    if(ViewBag.Pager !=null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
 
 <h1>List</h1>
 
@@ -54,3 +61,38 @@
 }
     </tbody>
 </table>
+
+<div class="container">
+    @if (pagination.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+
+            @if (pagination.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Product" asp-action="List" asp-route-pg="1">First</a>
+                </li>
+                <li>
+                    <a class="page-link" asp-asp-controller="Product" asp-action="List" asp-route-pg="@(pagination.CurrentPage - 1)">Previous</a>
+                </li>
+            }
+            @for (var pge = pagination.StartPage; pge <= pagination.EndPage; pge++)
+            {
+                <li class="page-item@(pge == pagination.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="Product" asp-action="Index" asp-route-pg="@pge"> @pge</a>
+                </li>
+            }
+            @if (pagination.CurrentPage < pagination.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-asp-controller="Product" asp-action="IList" asp-route-pg="@(pagination.CurrentPage + 1)">Next</a>
+                </li>
+                <li>
+                    <a class="page-link" asp-asp-controller="Product" asp-action="List" asp-route-pg="@(pagination.TotalPages)">Last</a>
+                </li>
+            }
+
+        </ul>
+    }
+
+</div>
